@@ -25,7 +25,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
 import com.leanstacks.ws.AbstractTest;
 import com.leanstacks.ws.model.Greeting;
-import com.leanstacks.ws.service.EmailService;
 import com.leanstacks.ws.service.GreetingService;
 
 /**
@@ -62,12 +61,6 @@ public class GreetingControllerTest extends AbstractTest {
      */
     @MockBean
     private transient GreetingService greetingService;
-
-    /**
-     * A mocked EmailService.
-     */
-    @MockBean
-    private transient EmailService emailService;
 
     /**
      * A mock servlet environment.
@@ -294,9 +287,6 @@ public class GreetingControllerTest extends AbstractTest {
 
         // Verify the GreetingService.findOne method was invoked once
         verify(greetingService, times(1)).findOne(id);
-
-        // Verify the EmailService.sendAsync method was invoked once
-        verify(emailService, times(1)).sendAsync(any(Greeting.class));
 
         // Perform standard JUnit assertions on the test results
         Assert.assertEquals("failure - expected HTTP status 200", 200, status);

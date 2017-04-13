@@ -1,9 +1,6 @@
 package com.leanstacks.ws.web.api;
 
 import java.util.Collection;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leanstacks.ws.model.Greeting;
-import com.leanstacks.ws.service.EmailService;
 import com.leanstacks.ws.service.GreetingService;
 
 /**
@@ -40,12 +36,6 @@ public class GreetingController {
      */
     @Autowired
     private transient GreetingService greetingService;
-
-    /**
-     * The EmailService business service.
-     */
-    @Autowired
-    private transient EmailService emailService;
 
     /**
      * Web service endpoint to fetch all Greeting entities. The service returns the collection of Greeting entities as
@@ -207,15 +197,7 @@ public class GreetingController {
                 logger.info("< sendGreeting");
                 return new ResponseEntity<Greeting>(HttpStatus.NOT_FOUND);
             }
-
-            if (waitForAsyncResult) {
-                final Future<Boolean> asyncResponse = emailService.sendAsyncWithResult(greeting);
-                final boolean emailSent = asyncResponse.get();
-                logger.info("- greeting email sent? {}", emailSent);
-            } else {
-                emailService.sendAsync(greeting);
-            }
-        } catch (ExecutionException | InterruptedException ex) {
+        } catch (Exception ex) {
             logger.error("A problem occurred sending the Greeting.", ex);
             return new ResponseEntity<Greeting>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
