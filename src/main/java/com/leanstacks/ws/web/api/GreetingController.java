@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leanstacks.ws.model.Greeting;
@@ -164,47 +163,6 @@ public class GreetingController {
 
         logger.info("< deleteGreeting");
         return new ResponseEntity<Greeting>(HttpStatus.NO_CONTENT);
-    }
-
-    /**
-     * <p>
-     * Web service endpoint to fetch a single Greeting entity by primary key identifier and send it as an email.
-     * </p>
-     * <p>
-     * If found, the Greeting is returned as JSON with HTTP status 200 and sent via Email. If not found, the service
-     * returns an empty response body with HTTP status 404.
-     * </p>
-     * 
-     * @param id A Long URL path variable containing the Greeting primary key identifier.
-     * @param waitForAsyncResult A boolean indicating if the web service should wait for the asynchronous email
-     *            transmission.
-     * @return A ResponseEntity containing a single Greeting object, if found, and a HTTP status code as described in
-     *         the method comment.
-     */
-    @RequestMapping(value = "/api/greetings/{id}/send",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Greeting> sendGreeting(@PathVariable("id") final Long id, @RequestParam(value = "wait",
-            defaultValue = "false") final boolean waitForAsyncResult) {
-
-        logger.info("> sendGreeting");
-
-        Greeting greeting;
-
-        try {
-            greeting = greetingService.findOne(id);
-            if (greeting == null) {
-                logger.info("< sendGreeting");
-                return new ResponseEntity<Greeting>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception ex) {
-            logger.error("A problem occurred sending the Greeting.", ex);
-            return new ResponseEntity<Greeting>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        logger.info("< sendGreeting");
-        return new ResponseEntity<Greeting>(greeting, HttpStatus.OK);
-
     }
 
 }
