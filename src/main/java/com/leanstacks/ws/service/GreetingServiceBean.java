@@ -105,6 +105,7 @@ public class GreetingServiceBean implements GreetingService {
         }
 
         greetingToUpdate.setText(greeting.getText());
+        greetingToUpdate.setLanguage(greeting.getLanguage());
         final Greeting updatedGreeting = greetingRepository.save(greetingToUpdate);
 
         logger.info("< update {}", greeting.getId());

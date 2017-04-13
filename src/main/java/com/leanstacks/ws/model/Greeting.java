@@ -15,6 +15,9 @@ public class Greeting extends TransactionalEntity {
 
     @NotNull
     private String text;
+  
+    @NotNull
+    private String language;
 
     public Greeting() {
         super();
@@ -24,6 +27,12 @@ public class Greeting extends TransactionalEntity {
         super();
         this.text = text;
     }
+    
+    public Greeting(final String text, final String language) {
+        super();
+        this.text = text;
+        this.setLanguage(language);
+    }
 
     public String getText() {
         return text;
@@ -32,5 +41,13 @@ public class Greeting extends TransactionalEntity {
     public void setText(final String text) {
         this.text = text;
     }
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
 
 }

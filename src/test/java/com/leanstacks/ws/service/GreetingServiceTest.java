@@ -27,6 +27,7 @@ import com.leanstacks.ws.model.Greeting;
 public class GreetingServiceTest extends AbstractTest {
 
     private static final String VALUE_TEXT = "test";
+    private static final String VALUE_LANGUAGE = "language";
 
     @Autowired
     private transient GreetingService greetingService;
@@ -79,6 +80,7 @@ public class GreetingServiceTest extends AbstractTest {
 
         final Greeting greeting = new Greeting();
         greeting.setText(VALUE_TEXT);
+        greeting.setLanguage(VALUE_LANGUAGE);
 
         final Greeting createdGreeting = greetingService.create(greeting);
 

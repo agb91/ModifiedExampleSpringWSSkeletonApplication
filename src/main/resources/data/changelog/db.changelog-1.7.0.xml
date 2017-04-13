@@ -18,6 +18,9 @@
       <column name="text" type="varchar(100)">
         <constraints nullable="false" />
       </column>
+      <column name="language" type="varchar(100)">
+        <constraints nullable="false" />
+      </column>
       <column name="version" type="int(10)" defaultValue="0">
         <constraints nullable="false" />
       </column>
@@ -36,12 +39,14 @@
     <insert tableName="Greeting">
         <column name="referenceId" value="1e0d5287-67fd-4043-9ac4-b8d358d6d7ce" />
         <column name="text" value="Hello World!" />
+        <column name="language" value="English" />
         <column name="createdBy" value="user" />
         <column name="createdAt" valueComputed="NOW()" />
     </insert>
     <insert tableName="Greeting">
         <column name="referenceId" value="37c3178d-3b49-47b6-99d1-277b1a3e8df8" />
         <column name="text" value="Hola Mundo!" />
+        <column name="language" value="Spanish" />
         <column name="createdBy" value="user" />
         <column name="createdAt" valueComputed="NOW()" />
     </insert>

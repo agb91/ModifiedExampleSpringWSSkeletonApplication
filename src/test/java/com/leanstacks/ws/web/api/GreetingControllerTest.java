@@ -54,7 +54,6 @@ public class GreetingControllerTest extends AbstractTest {
     /**
      * The resource single item URI with the 'send' action.
      */
-    private static final String RESOURCE_ITEM_URI_ACTION_SEND = "/api/greetings/{id}/send";
 
     /**
      * A mocked GreetingService.
@@ -265,33 +264,6 @@ public class GreetingControllerTest extends AbstractTest {
 
     }
 
-    @Test
-    @WithMockUser
-    public void testSendGreetingAsync() throws Exception {
-
-        // Create some test data
-        final Long id = new Long(1);
-        final Greeting entity = getEntityStubData();
-
-        // Stub the GreetingService.findOne method return value
-        when(greetingService.findOne(id)).thenReturn(entity);
-
-        // Perform the behavior being tested
-        final MvcResult result = mvc.perform(
-                MockMvcRequestBuilders.post(RESOURCE_ITEM_URI_ACTION_SEND, id).accept(MediaType.APPLICATION_JSON))
-                .andReturn();
-
-        // Extract the response status and body
-        final String content = result.getResponse().getContentAsString();
-        final int status = result.getResponse().getStatus();
-
-        // Verify the GreetingService.findOne method was invoked once
-        verify(greetingService, times(1)).findOne(id);
-
-        // Perform standard JUnit assertions on the test results
-        Assert.assertEquals("failure - expected HTTP status 200", 200, status);
-        Assert.assertTrue("failure - expected HTTP response body to have a value", !Strings.isNullOrEmpty(content));
-    }
 
     private Collection<Greeting> getEntityListStubData() {
         final Collection<Greeting> list = new ArrayList<Greeting>();
