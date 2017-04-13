@@ -189,5 +189,50 @@
       INSERT INTO AccountRole (accountId, roleId) SELECT a.id, r.id FROM Account a, Role r WHERE a.username = 'operations' and r.code = 'ROLE_SYSADMIN'
     </sql>
   </changeSet>
+  
+  <changeSet id="9" author="mwarman">
+    <createTable tableName="Country">
+      <column name="id" type="bigint(20)" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false" />
+      </column>
+      <column name="referenceId" type="varchar(255)">
+        <constraints unique="true" uniqueConstraintName="UQ_Country_ReferenceId" nullable="false" />
+      </column>
+      <column name="name" type="varchar(100)">
+        <constraints nullable="false" />
+      </column>
+      <column name="capital" type="varchar(100)">
+        <constraints nullable="false" />
+      </column>
+      <column name="version" type="int(10)" defaultValue="0">
+        <constraints nullable="false" />
+      </column>
+      <column name="createdBy" type="varchar(100)">
+        <constraints nullable="false" />
+      </column>
+      <column name="createdAt" type="datetime">
+        <constraints nullable="false" />
+      </column>
+      <column name="updatedBy" type="varchar(100)" />
+      <column name="updatedAt" type="datetime" />
+    </createTable>
+  </changeSet>
+  
+  <changeSet id="10" author="mwarman">
+    <insert tableName="Country">
+        <column name="referenceId" value="1e0d5287-67fd-4043-9ac4-b8d358d6d7ce" />
+        <column name="name" value="Italy" />
+        <column name="capital" value="Rome" />
+        <column name="createdBy" value="user" />
+        <column name="createdAt" valueComputed="NOW()" />
+    </insert>
+    <insert tableName="Country">
+        <column name="referenceId" value="37c3178d-3b49-47b6-99d1-277b1a3e8df8" />
+        <column name="name" value="Spain" />
+        <column name="capital" value="Madrid" />
+        <column name="createdBy" value="user" />
+        <column name="createdAt" valueComputed="NOW()" />
+    </insert>
+  </changeSet>
 
 </databaseChangeLog>
