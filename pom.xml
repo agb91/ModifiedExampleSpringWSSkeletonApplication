@@ -12,7 +12,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.5.1.RELEASE</version>
+    <version>1.5.2.RELEASE</version>
   </parent>
   
   <properties>
@@ -110,24 +110,66 @@
       <artifactId>spring-security-test</artifactId>
       <scope>test</scope>
     </dependency>
+    
+    		<!-- tag::springws[] DEPENDENCY TO MANAGE XSD--> 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web-services</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+		</dependency>
+		<!-- end::springws[] -->
+    
+    
+    
   </dependencies>
 
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <executable>true</executable>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>build-info</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+		<plugin>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-maven-plugin</artifactId>
+		  <configuration>
+		    <executable>true</executable>
+		  </configuration>
+		  <executions>
+		    <execution>
+		      <goals>
+		        <goal>build-info</goal>
+		      </goals>
+		    </execution>
+		  </executions>
+		</plugin>
+      
+      
+          <!-- tag::xsd[] -->
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>jaxb2-maven-plugin</artifactId>
+			<version>1.6</version>
+			<configuration>
+				<schemaDirectory>${project.basedir}/src/main/resources/data/XSD</schemaDirectory>
+				<outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+				<clearOutputDir>false</clearOutputDir>
+			</configuration>
+			<executions>
+				<execution>
+					<id>xjc</id>
+					<goals>
+						<goal>xjc</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>
+		<!-- end::xsd[] -->
+      
+      
     </plugins>
+    
+    
+		
+		
   </build>
 </project>
